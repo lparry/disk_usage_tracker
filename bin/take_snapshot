@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+$LOAD_PATH << File.expand_path("../../lib/", __FILE__)
+require 'file_size_snapshot'
+FileSizeSnapshot.new("~/Dropbox/").generate
