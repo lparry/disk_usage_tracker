@@ -7,6 +7,7 @@ require 'pry'
 puts DiskAccessHelper.data_sets
 
 puts "ChangeSet.new(rev1, rev2)"
+c=ChangeSet.new("20120115143229","20120115143702")
 
 binding.pry
 

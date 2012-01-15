@@ -41,10 +41,28 @@ class Change
   end
 
   def inspect
-    %(#<#{self.class.name}: "path"=>"#{either["path"]}", "directory?"=>#{either["directory?"]}}, "raw_size": #{raw_size}, "percentage": #{percentage}% >)
+    if new?
+      %(#{common_inspect_string} "new?": true >)
+    elsif deleted?
+      %(#{common_inspect_string} "deleted?": true >)
+    else
+      %(#{common_inspect_string} "percentage": #{percentage}% >)
+    end
+  end
+
+  def new?
+    @version_a.nil? && @version_b
+  end
+
+  def deleted?
+    @version_a && @version_b.nil?
   end
 
   private
+
+  def common_inspect_string
+    %(#<#{self.class.name}: "path"=>"#{@version_b["path"]}", "directory?"=>#{@version_b["directory?"]}}, "before": #{size_before}, "after": #{size_after}, "raw_size": #{raw_size},)
+  end
 
   def either
     (@version_a || @version_b)
