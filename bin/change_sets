@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+$LOAD_PATH << File.expand_path("../../lib/", __FILE__)
+require 'change_set'
+require 'disk_access_helper'
+require 'pry'
+puts DiskAccessHelper.data_sets
+
+puts "ChangeSet.new(rev1, rev2)"
+
+binding.pry
+

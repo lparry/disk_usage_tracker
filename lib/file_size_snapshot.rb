@@ -16,7 +16,7 @@ class FileSizeSnapshot
   end
 
   def generate
-    DiskAccessHelper.write_to_disk(files.to_json)
+    DiskAccessHelper.write_to_disk(files)
   end
 
   private
