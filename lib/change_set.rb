@@ -1,4 +1,5 @@
 require 'disk_access_helper'
+require 'change'
 
 class ChangeSet
 
@@ -46,8 +47,19 @@ class ChangeSet
     changed
   end
 
-  private
+  def changes_by_size
+    changes.sort do |a,b|
+      Change.new(a[@revision_a], a[@revision_b]).raw_size <=> Change.new(b[revision_a], b[@revision_b]).raw_size
+    end
+  end
 
+  def changes_by_percentage
+    changes.sort do |a,b|
+      Change.new(a[@revision_a], a[@revision_b]).percentage <=> Change.new(b[revision_a], b[@revision_b]).percentage
+    end
+  end
+
+  private
   def get_size(data, revision)
     if data[revision]
       data["size"]
