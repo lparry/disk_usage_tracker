@@ -1,4 +1,3 @@
-
 require 'rubygems'
 require 'json'
 require 'zip/zip'
@@ -22,7 +21,7 @@ class FileSizeLookup
   private
 
   def du_data
-    @du_data ||= `command du -ka #{@directory}`.split("\n").collect{|line| line.split("\t")}
+    @du_data ||= `command du -a #{@directory}`.split("\n").collect{|line| line.split("\t")}
   end
 
   def directory_list
@@ -111,50 +110,11 @@ class ChangeSet
     end
   end
 end
-#file_size_lookup = FileSizeLookup.new("~/Dropbox")
+file_size_lookup = FileSizeLookup.new("~/Dropbox")
+DiskAccessHelper.write_to_disk(file_size_lookup.files)
 #puts DiskAccessHelper.data_sets
 #
-changes = ChangeSet.new("20120115120420","20120115122300")
+changes = ChangeSet.new("20120115143229","20120115143311")
+
 
 binding.pry
-
-# class UnixFile
-#   attr_accessor :size, :path, :children, :filename
-#
-#   def initialize(args = {})
-#     self.size     = args[:size] || args['size'] || raise("size required")
-#     self.path     = args[:size] || args['path'] || raise("path required")
-#     self.filename = File.basename(path)
-#     self.path     = File.dirname(path)
-#     self.children = args[:children] || []
-#   end
-#
-#   def inspect
-#     "#<#{self.class.name}: @filename=#{filename} @size=#{size} @children=#{children.collect(&:name).inspect}>"
-#   end
-#
-#   def apply(files)
-#     files.all?{|file| file =~ /^#{RegExp.escape(path)}/ } or raise "shits fucked"
-#     stripped_files = files.collect{|file| binding.pry; file.split_path}
-#   end
-#
-#   def split_path
-#     path.split("/")
-#   end
-# end
-#
-# data = []
-# `cat input.du.gz|zcat`.each_line do |line|
-#   data << line.chomp.split("\t")
-# end
-#
-# this_run = []
-# data.sort!{|a,b| a[1].length <=> b[1].length }.each do |row|
-#   p row
-#   this_run.push UnixFile.new(Hash[%w[size path].zip(row)])
-# end
-#
-# root = this_run.shift
-# root.apply(this_run)
-# binding.pry
-# p ''
