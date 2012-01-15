@@ -5,15 +5,19 @@ class Change
   end
 
   def raw_size
-    after - before
+    size_after - size_before
   end
 
   def percentage
-    (after - before).to_f/before
+    (size_after - size_before).to_f/size_before
+  end
+
+  def changed?
+    size_before != size_after
   end
 
 
-  def before
+  def size_before
     if @version_a
       @version_a["size"].to_i
     else
@@ -21,7 +25,7 @@ class Change
     end
   end
 
-  def after
+  def size_after
     if @version_b
       @version_b["size"].to_i
     else

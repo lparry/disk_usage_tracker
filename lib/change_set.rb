@@ -37,11 +37,8 @@ class ChangeSet
     changed = []
 
     matched_files.each do |data|
-      if data[revision_a] and data[revision_b]
-        changed << data if data[revision_a]["size"] != data[revision_b]["size"]
-      else
-        changed << data
-      end
+      change = Change.new(data[revision_a], data[revision_b])
+        changed << change if change.changed?
     end
 
     changed
@@ -49,13 +46,13 @@ class ChangeSet
 
   def changes_by_size
     changes.sort do |a,b|
-      Change.new(a[@revision_a], a[@revision_b]).raw_size <=> Change.new(b[revision_a], b[@revision_b]).raw_size
+      b.raw_size <=> a.raw_size
     end
   end
 
   def changes_by_percentage
     changes.sort do |a,b|
-      Change.new(a[@revision_a], a[@revision_b]).percentage <=> Change.new(b[revision_a], b[@revision_b]).percentage
+      b.percentage <=> a.percentage
     end
   end
 
