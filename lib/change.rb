@@ -61,7 +61,7 @@ class Change
   private
 
   def common_inspect_string
-    %(#<#{self.class.name}: "path"=>"#{@version_b["path"]}", "directory?"=>#{@version_b["directory?"]}}, "before": #{size_before}, "after": #{size_after}, "raw_size": #{raw_size},)
+    %(#<#{self.class.name}: "path"=>"#{@version_b["path"]}", "directory?"=>#{@version_b["directory?"]}, "before": #{size_before}, "after": #{size_after}, "raw_size": #{raw_size},)
   end
 
   def either
